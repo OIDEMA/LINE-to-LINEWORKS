@@ -1,7 +1,7 @@
 const https = require("https")
 const express = require("express")
 const app = express()
-const google = require('googleapis');
+const { google } = require('googleapis');
 
 /* コンフィグ設定 */
 require('dotenv').config()
