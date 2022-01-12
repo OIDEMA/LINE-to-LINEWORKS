@@ -3,8 +3,12 @@ const express = require("express")
 const app = express()
 const google = require('googleapis');
 
+/* コンフィグ設定 */
+require('dotenv').config()
+
 const PORT = process.env.PORT || 3000
 const TOKEN = process.env.LINE_ACCESS_TOKEN
+
 
 
 app.use(express.json())
@@ -66,24 +70,26 @@ app.post("/callback", function(req, res) {
       }
 })
 
-app.get("/accountSet", function(req, res) {
-    const auth = google.Auth.GoogleAuth({
-        keyFilename: './credentials/client_secret_381754777440-bfg7pd0uls3qk4dikm5abmmu79ec27rl.apps.googleusercontent.com.json',
-        scopes: ['https://www.googleapis.com/auth/documents']
-    })
+app.get("/accountSet", function() {
 
-    const authClient = await auth.getClient();
-    
-    const client = await docs.docs({
-        version: 'v1',
-        auth: authClient
-    });
-    
-    const createResponse = await client.documents.create({
-        requestBody: {
-          title: 'Your new document!',
-        },
-    });
+    const oauth2Client = new google.auth.OAuth2(
+        process.env.YOUR_CLIENT_ID,
+        process.env.YOUR_CLIENT_SECRET,
+        process.env.YOUR_REDIRECT_URL
+    );
+
+    /* スコープ一覧 https://developers.google.com/identity/protocols/oauth2/scopes#adsense */
+    const scopes = [
+        'https://www.googleapis.com/auth/adsense.readonly',
+    ];
+
+    const url = oauth2Client.generateAuthUrl({
+        // 'online' (default) or 'offline' (gets refresh_token)
+        access_type: 'offline',
+
+        // If you only need one scope you can pass it as a string
+        scope: scopes
+      });
     
     console.log(createResponse.data);
 })
