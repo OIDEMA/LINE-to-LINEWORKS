@@ -101,6 +101,7 @@ app.get("/accountSet", function() {
         }
         console.log(tokens.access_token);
       });
+      
       oauth2Client.setCredentials({
         refresh_token: `STORED_REFRESH_TOKEN`
       });
