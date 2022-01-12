@@ -1,6 +1,7 @@
 const https = require("https")
 const express = require("express")
 const app = express()
+const google = require('googleapis');
 
 const PORT = process.env.PORT || 3000
 const TOKEN = process.env.LINE_ACCESS_TOKEN
@@ -65,14 +66,12 @@ app.post("/callback", function(req, res) {
       }
 })
 
-app.post("/accountSet", function(req, res) {
-    const docs = require('@googleapis/docs')
+app.get("/accountSet", function(req, res) {
+    const auth = google.Auth.GoogleAuth({
+        keyFilename: './credentials/client_secret_381754777440-bfg7pd0uls3qk4dikm5abmmu79ec27rl.apps.googleusercontent.com.json',
+        scopes: ['https://www.googleapis.com/auth/documents']
+    })
 
-    const auth = new docs.auth.GoogleAuth({
-      keyFilename: './credentials/client_secret_381754777440-bfg7pd0uls3qk4dikm5abmmu79ec27rl.apps.googleusercontent.com.json',
-        // Scopes can be specified either as an array or as a single, space-delimited string.
-      scopes: ['https://www.googleapis.com/auth/documents']
-    });
     const authClient = await auth.getClient();
     
     const client = await docs.docs({
