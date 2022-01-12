@@ -91,20 +91,22 @@ app.get("/accountSet", function() {
         scope: scopes
       });
 
-      const { tokens } = await oauth2Client.getToken(code)
-      oauth2Client.setCredentials(tokens);
+      console.log(url)
 
-      oauth2Client.on('tokens', (tokens) => {
-        if (tokens.refresh_token) {
-          // store the refresh_token in my database!
-          console.log(tokens.refresh_token);
-        }
-        console.log(tokens.access_token);
-      });
-      
-      oauth2Client.setCredentials({
-        refresh_token: `STORED_REFRESH_TOKEN`
-      });
+    //   const tokens = await oauth2Client.getToken(code)
+    //   oauth2Client.setCredentials(tokens);
+
+    //   oauth2Client.on('tokens', (tokens) => {
+    //     if (tokens.refresh_token) {
+    //       // store the refresh_token in my database!
+    //       console.log(tokens.refresh_token);
+    //     }
+    //     console.log(tokens.access_token);
+    //   });
+
+    //   oauth2Client.setCredentials({
+    //     refresh_token: `STORED_REFRESH_TOKEN`
+    //   });
     })
 
 
