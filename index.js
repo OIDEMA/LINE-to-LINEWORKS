@@ -20,16 +20,11 @@ app.listen(PORT, () => {
 })
 
 app.post("/callback", function(req, res) {
-    res.send("HTTP POST request sent to the webhook URL!")
     if (req.body.events[0].type === "message") {
         // Message data, must be stringified
         const dataString = JSON.stringify({
           replyToken: req.body.events[0].replyToken,
           messages: [
-            {
-              "type": "text",
-              "text": "Hello, user"
-            },
             {
               "type": "text",
               "text": "May I help you?"
@@ -69,3 +64,37 @@ app.post("/callback", function(req, res) {
         request.end()
       }
 })
+
+app.post("/accountSet", function(req, res) {
+    const docs = require('@googleapis/docs')
+
+    const auth = new docs.auth.GoogleAuth({
+      keyFilename: './credentials/client_secret_381754777440-bfg7pd0uls3qk4dikm5abmmu79ec27rl.apps.googleusercontent.com.json',
+        // Scopes can be specified either as an array or as a single, space-delimited string.
+      scopes: ['https://www.googleapis.com/auth/documents']
+    });
+    const authClient = await auth.getClient();
+    
+    const client = await docs.docs({
+        version: 'v1',
+        auth: authClient
+    });
+    
+    const createResponse = await client.documents.create({
+        requestBody: {
+          title: 'Your new document!',
+        },
+    });
+    
+    console.log(createResponse.data);
+})
+
+
+/* Reference */
+
+/* 
+Googleapi x node.js
+https://googleapis.dev/nodejs/googleapis/46.0.0/adsense/index.html
+
+
+*/
