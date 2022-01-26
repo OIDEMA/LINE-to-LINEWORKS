@@ -33,8 +33,8 @@ app.listen(PORT, () => {
 })
 
 app.post("/callback", function(req, res) {
-    if (req.body.events[0].type === "message") {
-        console.log(req)
+  console.log(req)
+  if (req.body.events[0].type === "message") {
         // Message data, must be stringified
         const dataString = JSON.stringify({
           replyToken: req.body.events[0].replyToken,
