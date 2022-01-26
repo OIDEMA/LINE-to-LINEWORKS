@@ -9,6 +9,11 @@ const http = require('http');
 const querystring = require('querystring');
 const opn = require('opn');
 
+
+const querystring = require('querystring');
+const opn = require('opn');
+
+
 const PORT = process.env.PORT || 3000
 const TOKEN = process.env.LINE_ACCESS_TOKEN
 
@@ -28,7 +33,8 @@ app.listen(PORT, () => {
 })
 
 app.post("/callback", function(req, res) {
-  if (req.body.events[0].type === "message") {
+    if (req.body.events[0].type === "message") {
+        console.log(req)
         // Message data, must be stringified
         const dataString = JSON.stringify({
           replyToken: req.body.events[0].replyToken,
@@ -39,7 +45,6 @@ app.post("/callback", function(req, res) {
             }
           ]
         })
-        console.log(req)
     
         // Request header
         const headers = {
