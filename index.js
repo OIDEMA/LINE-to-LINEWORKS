@@ -25,9 +25,8 @@ app.listen(PORT, () => {
     console.log(`Example app listening at http://localhost:${PORT}`)
 })
 
-app.post("/callback", function(req, res) {
+app.post("/callback", (req, res) => {
     if (req.body.events[0].type === "message") {
-        console.log(req)
         // Message data, must be stringified
         const dataString = JSON.stringify({
           replyToken: req.body.events[0].replyToken,
