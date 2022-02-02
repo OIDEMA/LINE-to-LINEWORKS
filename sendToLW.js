@@ -2,7 +2,7 @@ const request = require('request');
 
 module.exports = function sendToLW(messageText, token) {
   console.log(token)
-  console.log('aa')
+  console.log(messageText)
   const BOTNO = process.env.BOTNO;
   const APIID = process.env.APIID;
   const CONSUMERKEY = process.env.CONSUMERKEY;
