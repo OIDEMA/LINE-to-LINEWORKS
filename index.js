@@ -83,6 +83,14 @@ app.post("/callback", function(req, res) {
       });  
 })
 
+app.post("/fromlw", function(req, res) {
+  console.log(req.body.content.text)
+})
+
+
+/* from Lineworks*/
+
+
 // app.get("/accountSet", function() {
 
 //     const oauth2Client = new google.auth.OAuth2(
