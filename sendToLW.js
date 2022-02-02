@@ -1,6 +1,8 @@
 const request = require('request');
 
 module.exports = function sendToLW(messageText, token) {
+  console.log(token)
+  console.log('aa')
   const BOTNO = process.env.BOTNO;
   const APIID = process.env.APIID;
   const CONSUMERKEY = process.env.CONSUMERKEY;
@@ -14,6 +16,7 @@ module.exports = function sendToLW(messageText, token) {
     json: {
       botNo: Number(BOTNO),
       accountId: "k-goda@anabuki-group",
+      // roomId: "k-goda@anabuki-group",
       content: {
         type: "text",
         text: messageText
