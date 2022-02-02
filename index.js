@@ -30,7 +30,7 @@ app.listen(PORT, () => {
 app.post("/callback", function(req, res) {
     if (req.body.events[0].type === "message") {
         // Message data, must be stringified
-        console.log(req.body.message)
+        console.log(req.body.events[0].message)
         const dataString = JSON.stringify({
           replyToken: req.body.events[0].replyToken,
           messages: [
@@ -48,13 +48,13 @@ app.post("/callback", function(req, res) {
         }
     
         // Options to pass into the request
-        const webhookOptions = {
-          "hostname": "api.line.me",
-          "path": "/v2/bot/message/reply",
-          "method": "POST",
-          "headers": headers,
-          "body": dataString
-        }
+        // const webhookOptions = {
+        //   "hostname": "api.line.me",
+        //   "path": "/v2/bot/message/reply",
+        //   "method": "POST",
+        //   "headers": headers,
+        //   "body": dataString
+        // }
     
         // Define request
         const request = https.request(webhookOptions, (res) => {
