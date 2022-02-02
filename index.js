@@ -78,7 +78,7 @@ app.post("/callback", function(req, res) {
       /* LineWorksへの転送 */
       getJWT(jwttoken => {
         getServerToken(jwttoken, newtoken => {
-          sendToLW(messageText, newtoken);
+          sendToLW("aa", newtoken);
         });
       });  
 })
