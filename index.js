@@ -12,6 +12,8 @@ const opn = require('opn');
 const PORT = process.env.PORT || 3000
 const TOKEN = process.env.LINE_ACCESS_TOKEN
 
+
+
 app.use(express.json())
 app.use(express.urlencoded({
   extended: true
@@ -25,7 +27,7 @@ app.listen(PORT, () => {
     console.log(`Example app listening at http://localhost:${PORT}`)
 })
 
-app.post("/callback", (req, res) => {
+app.post("/callback", function(req, res) {
     if (req.body.events[0].type === "message") {
         // Message data, must be stringified
         const dataString = JSON.stringify({
@@ -93,7 +95,9 @@ app.get("/accountSet", function() {
         scope: scopes
       });
 
-      const tokens = await oauth2Client.getToken(code)
+      console.log(url)
+
+      const tokens = oauth2Client.getToken(code)
       oauth2Client.setCredentials(tokens);
 
       oauth2Client.on('tokens', (tokens) => {
