@@ -13,7 +13,7 @@ module.exports = function sendToLW(messageText, token) {
     },
     json: {
       botNo: Number(BOTNO),
-      roomId: "k-goda@anabuki-group",
+      accountId: "k-goda@anabuki-group",
       content: {
         type: "text",
         text: messageText
