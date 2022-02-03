@@ -92,12 +92,19 @@ const liSendToCustomer = require('./li-sendToCustomer')
 const liGetJWT = require("./li-getJWT");
 const liGetServerToken = require("./li-get-server-token");
 
+const RegExp = /^U*^([A-Za-z0-9])\n/;
+
 app.post("/fromlw", function(req, res) {
-  liGetJWT(jwttoken => {
-    liGetServerToken(jwttoken, newtoken => {
-      liSendToCustomer(req.body.content.text, newtoken);
-    });
-  })
+  const messageText = req.body.content.text
+  if (RegExp.test(messageText)) {
+    const accountId = messageText.match(RegExp);
+    const answerMessage = messageText.replace(RegExp, "");
+    liGetJWT(jwttoken => {
+      liGetServerToken(jwttoken, newtoken => {
+        liSendToCustomer(answerMessage, newtoken, accountId);
+      });
+    })
+  }
   console.log(req.body.content.text)
 })
 

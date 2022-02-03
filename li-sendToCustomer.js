@@ -1,9 +1,9 @@
 const line = require('@line/bot-sdk');
 
-module.exports = function getJWT(message, newtoken) {
-  console.log(message)
-  console.log({"newToken":newtoken})
-  
+module.exports = function getJWT(message, newtoken, accountId) {
+  // console.log(message)
+  // console.log({"newToken":newtoken})
+
   const client = new line.Client({
     channelAccessToken: newtoken
   });
@@ -13,7 +13,7 @@ module.exports = function getJWT(message, newtoken) {
     text: message
   };
   
-  client.pushMessage('U133a1ab1254f3ec6645a0689a55dd375', Message)
+  client.pushMessage(accountId, Message)
     .then(() => {
       console.log('メッセージを送信しました')
     })
