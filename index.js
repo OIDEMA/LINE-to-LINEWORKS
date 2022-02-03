@@ -88,18 +88,19 @@ app.post("/callback", async function(req, res) {
 
 /* from Lineworks*/
 
-// const liGetUserAccount = require('./li-get-user-account')
+const liSendToCustomer = require('./li-sendToCustomer')
 const liGetJWT = require("./li-getJWT");
 const liGetServerToken = require("./li-get-server-token");
 
 app.post("/fromlw", function(req, res) {
+  const Message = req.body.content.text
   liGetJWT(jwttoken => {
     liGetServerToken(jwttoken, newtoken => {
       console.log(newtoken)
-      /* sendToLW(Message, newtoken, userAccount);*/
+      liSendToCustomer(Message, newtoken);
     });
   })
-  /* console.log(req.body.content.text)*/
+  console.log(req.body.content.text)
 })
 
 /* Reference */
