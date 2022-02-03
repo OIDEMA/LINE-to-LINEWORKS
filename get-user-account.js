@@ -13,10 +13,10 @@ module.exports = function getUserAccount(userId) {
   request.get(data, (err, res, body) => {
     if (err) {
       console.log("Error", err);
-      callback(err);
+      return(err);
     } else {
       console.log(body)
-      callback(body);
+      return(body);
     }
   });
 };
