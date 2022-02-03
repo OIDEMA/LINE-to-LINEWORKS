@@ -1,6 +1,9 @@
 const line = require('@line/bot-sdk');
 const axios = require('axios');
 
+const getJWT = require("./getJWT");
+const getServerToken = require("./get-server-token");
+
 module.exports = async function sendMessageToCustomer(message, newtoken, accountId, companyUser) {
 
   const client = new line.Client({
@@ -24,7 +27,7 @@ module.exports = async function sendMessageToCustomer(message, newtoken, account
   );
 
   /* Line Works User */
-  function getAccountInfo() {
+  async function getAccountInfo() {
     getJWT(jwttoken => {
       getServerToken(jwttoken, async (newtoken) => {
         const account = await axios({
