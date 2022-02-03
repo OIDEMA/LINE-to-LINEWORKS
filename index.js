@@ -82,7 +82,7 @@ app.post("/callback", function(req, res) {
       }
 
       const userAccount = getUserAccount(req.body.events[0].source.userId)
-      console.log({"userAccount": userAccount.displayname})
+      console.log({"userAccount": userAccount})
 
 
       /* LineWorksへの転送 */
