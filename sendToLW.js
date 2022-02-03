@@ -8,15 +8,15 @@ module.exports = function sendToLW(messageText, token) {
   const CONSUMERKEY = process.env.CONSUMERKEY;
 
   const postData = {
-    url: "https://apis.worksmobile.com/" + APIID + "/message/sendMessage/v2",
+    url: "https://apis.worksmobile.com/r/" + APIID + "/message/v1/bot/" + BOTNO + "/message/push",
     headers: {
       consumerKey: CONSUMERKEY,
       Authorization: "Bearer " + token
     },
     json: {
       botNo: Number(BOTNO),
-      // accountId: "k-goda@anabuki-group",
-      roomId: 51952099,
+      accountId: "k-goda@anabuki-group",
+      // roomId: 51952099, /* DXのルーム */
       content: {
         type: "text",
         text: messageText     
