@@ -1,6 +1,6 @@
 const request = require('request');
 
-module.exports = function sendToLW(messageText, token) {
+module.exports = function sendToLW(messageText, token, userId) {
   console.log(token)
   console.log(messageText)
   const BOTNO = process.env.BOTNO;
@@ -19,7 +19,7 @@ module.exports = function sendToLW(messageText, token) {
       // roomId: 51952099, /* DXのルーム */
       content: {
         type: "text",
-        text: messageText 
+        text: messageText + userId
       }
     }
   };

@@ -31,7 +31,6 @@ app.listen(PORT, () => {
 })
 
 app.post("/callback", function(req, res) {
-    console.log(req.body.events[0])
     if (req.body.events[0].type === "message") {
         // Message data, must be stringified
         const dataString = JSON.stringify({
@@ -79,7 +78,7 @@ app.post("/callback", function(req, res) {
       /* LineWorksへの転送 */
       getJWT(jwttoken => {
         getServerToken(jwttoken, newtoken => {
-          sendToLW(req.body.events[0].message.text, newtoken);
+          sendToLW(req.body.events[0].message.text, newtoken, req.body.events[0].source.userId);
         });
       });  
 })
