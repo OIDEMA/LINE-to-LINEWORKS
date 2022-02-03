@@ -34,7 +34,8 @@ app.listen(PORT, () => {
 })
 
 app.post("/callback", function(req, res) {
-    console.log(jwt_decode(req.body.events[0].replyToken))
+    const decoded = jwt_decode(req.body.events[0].replyToken)
+    console.log(decoded)
     if (req.body.events[0].type === "message") {
         // Message data, must be stringified
         const dataString = JSON.stringify({
