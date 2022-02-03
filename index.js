@@ -96,6 +96,7 @@ const RegExp = /^U*^([A-Za-z0-9])\n/;
 
 app.post("/fromlw", function(req, res) {
   const messageText = req.body.content.text
+  /* https://developer.mozilla.org/ja/docs/Web/JavaScript/Guide/Regular_Expressions */
   if (RegExp.test(messageText)) {
     const accountId = messageText.match(RegExp);
     const answerMessage = messageText.replace(RegExp, "");
