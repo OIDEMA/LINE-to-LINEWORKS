@@ -1,4 +1,6 @@
 const https = require("https")
+const axios = require('axios');
+
 const TOKEN = process.env.LINE_ACCESS_TOKEN
 
 module.exports = function getUserAccount(userId) {
@@ -15,21 +17,9 @@ module.exports = function getUserAccount(userId) {
     "headers": headers,
   }
   // Define request
-  const request = https.request(webhookOptions, (res) => {
-    res.on('data', (d) => {
-      console.log(d)
-    })
-    res.on('end', () =>{
-      console.log("user aquisition finished")
-    })
+  axios.get(webhookOptions)
+    .then((data)=> {
+      console.log(data)
   })
-  // Handle error
-  request.on('error', (e) => {
-    console.error(`problem with request: ${e.message}`)
-  })
-
-  // Send data
-  // request.write()
-  request.end()
 };
 
