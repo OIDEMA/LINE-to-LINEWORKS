@@ -93,6 +93,25 @@ app.post("/fromlw", function(req, res) {
   console.log(req.body.content.text)
 })
 
+// async function getUserAccount() {
+//   try {
+//     const account = await axios({
+//       method: 'get',
+//       url: `https://api.line.me/v2/bot/profile/${userId}`,
+//       headers: {
+//         "Content-Type": "application/json",
+//         "Authorization": "Bearer " + TOKEN
+//       }
+//     }).then((res) => {
+//       console.log(res.data)
+//       return res.data
+//     })
+//     return "質問内容："+ "\n" + messageText + "\n\n" + "質問者ID：" + accountId  + "\n" + "質問者：" +  account.name + "\n" +　"所属部署：" + account.representOrgUnitName
+//   } catch (e) {
+//     console.log(e)
+//   }
+// }
+// };
 
 
 /* Reference */
