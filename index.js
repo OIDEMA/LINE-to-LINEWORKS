@@ -71,26 +71,25 @@ app.post("/callback", function(req, res) {
           })
         })
     
-        // Handle error
-        request.on("error", (err) => {
-          console.error(err)
-        })
-    
-        // Send data
-        request.write(dataString)
-        request.end()
-      }
-
       const userAccount = getUserAccount(req.body.events[0].source.userId)
       console.log({"userAccount": userAccount})
-
 
       /* LineWorksへの転送 */
       getJWT(jwttoken => {
         getServerToken(jwttoken, newtoken => {
           sendToLW(req.body.events[0].message.text, newtoken, req.body.events[0].source.userId);
         });
-      });  
+      });
+
+      // Handle error
+      request.on("error", (err) => {
+        console.error(err)
+      })
+  
+      // Send data
+      request.write(dataString)
+      request.end()
+    }
 })
 
 /* from Lineworks*/
