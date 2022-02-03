@@ -1,8 +1,6 @@
 const request = require('request');
 
 module.exports = function sendToLW(messageText, token, userId) {
-  console.log(token)
-  console.log(messageText)
   const BOTNO = process.env.BOTNO;
   const APIID = process.env.APIID;
   const CONSUMERKEY = process.env.CONSUMERKEY;

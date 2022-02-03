@@ -4,11 +4,6 @@ const express = require("express")
 const app = express()
 const { google } = require('googleapis');
 
-/* refresh token取得のために追加 */
-const http = require('http');
-const querystring = require('querystring');
-const opn = require('opn');
-
 /* decode */
 const jwt_decode = require('jwt-decode');
 
@@ -39,12 +34,15 @@ app.post("/callback", function(req, res) {
     // console.log(decoded)
     if (req.body.events[0].type === "message") {
         // Message data, must be stringified
+
+        const USERID = req.body.events[0].source.userId
+        const Message = req.body.events[0].message.text
         const dataString = JSON.stringify({
           replyToken: req.body.events[0].replyToken,
           messages: [
             {
               "type": "text",
-              "text": req.body.events[0].message.text
+              "text": Message
             }
           ]
         })
@@ -74,13 +72,13 @@ app.post("/callback", function(req, res) {
           })
         })
     
-      const userAccount = getUserAccount(req.body.events[0].source.userId)
+      const userAccount = getUserAccount(USERID)
       console.log({"userAccount": userAccount})
 
       /* LineWorksへの転送 */
       getJWT(jwttoken => {
         getServerToken(jwttoken, newtoken => {
-          sendToLW(req.body.events[0].message.text, newtoken, req.body.events[0].source.userId);
+          sendToLW(Message, newtoken, USERID);
         });
       });
 
@@ -100,6 +98,13 @@ app.post("/fromlw", function(req, res) {
   console.log(req.body.content.text)
 })
 
+
+
+/* Reference */
+/* 
+Googleapi x node.js
+https://googleapis.dev/nodejs/googleapis/46.0.0/adsense/index.html
+*/
 
 // app.get("/accountSet", function() {
 
@@ -163,15 +168,3 @@ app.post("/fromlw", function(req, res) {
     //         opn(authorizeUrl);
     //       });
     // }
-
-      
-
-
-/* Reference */
-
-/* 
-Googleapi x node.js
-https://googleapis.dev/nodejs/googleapis/46.0.0/adsense/index.html
-
-
-*/
