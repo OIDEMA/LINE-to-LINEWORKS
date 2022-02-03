@@ -1,6 +1,6 @@
 const jose = require('node-jose');
 
-module.exports = function getJWT() {
+module.exports = function getJWT(callback) {
   const jwt = jose.JWS.createSign(
     {
       format: 'compact',
@@ -20,10 +20,8 @@ module.exports = function getJWT() {
   }))
   .final()
   .then((res)=> {
-    console.log(res);
-    return res
+    callback(res)
   });
-  return jwt
 }
 
 /* 

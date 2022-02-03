@@ -1,7 +1,6 @@
 const request = require("request");
 
 module.exports = function getServerToken(jwttoken, callback) {
-    const APIID = process.env.APIID;
     const postdata = {
       url: "https://api.line.me/oauth2/v2.1/token",
       headers: {
