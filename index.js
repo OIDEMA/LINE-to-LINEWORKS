@@ -81,7 +81,7 @@ app.post("/callback", function(req, res) {
         request.end()
       }
 
-      const userAccount = getUserAccount()
+      const userAccount = getUserAccount(req.body.events[0].source.userId)
       console.log({"userAccount": userAccount})
 
 
