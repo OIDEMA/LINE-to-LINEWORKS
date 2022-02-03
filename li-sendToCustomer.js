@@ -24,21 +24,21 @@ module.exports = async function sendMessageToCustomer(message, newtoken, account
 
     /* Line Works User */
     async function getAccountInfo() {
-      try {
-        const account = await axios({
-          method: 'get',
-          url: `https://apis.worksmobile.com/r/${process.env.APIID}/contact/v2/accounts/${companyUser}`,
-          headers: {
-            "Content-Type": "application/json;charset=UTF-8",
-            consumerKey: process.env.CONSUMERKEY,
-            Authorization: "Bearer " + token
-          }
-        }).then((res) => {
-          return res.data
+      getJWT(jwttoken => {
+        getServerToken(jwttoken, newtoken => {
+          const account = await axios({
+            method: 'get',
+            url: `https://apis.worksmobile.com/r/${process.env.APIID}/contact/v2/accounts/${companyUser}`,
+            headers: {
+              "Content-Type": "application/json;charset=UTF-8",
+              consumerKey: process.env.CONSUMERKEY,
+              Authorization: "Bearer " + newtoken
+            }
+          }).then((res) => {
+            return res.data
+          })
+          return "穴吹興産株式会社"+ "\n" + account.name + "\n" +　"所属部署：" + account.representOrgUnitName
         })
-        return "穴吹興産株式会社"+ "\n" + account.name + "\n" +　"所属部署：" + account.representOrgUnitName
-      } catch (e) {
-        console.log(e)
-      }
+      });
     }
 }
