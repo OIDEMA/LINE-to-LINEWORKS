@@ -12,8 +12,7 @@ module.exports = function getUserAccount(userId) {
   };
   request.get(data, (err, res, body) => {
     if (res) {
-      console.log(res);
-      return;
+      return res;
     }
   });  
 };
