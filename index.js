@@ -92,7 +92,7 @@ const liSendToCustomer = require('./li-sendToCustomer')
 const liGetJWT = require("./li-getJWT");
 const liGetServerToken = require("./li-get-server-token");
 
-const RegExp = /^U*^([A-Za-z0-9])\n/;
+const RegExp = /^U[A-Za-z0-9]\n/;
 
 app.post("/fromlw", function(req, res) {
   const messageText = req.body.content.text
