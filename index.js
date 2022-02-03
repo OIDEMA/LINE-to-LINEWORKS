@@ -102,7 +102,7 @@ app.post("/fromlw", function(req, res) {
   /* https://developer.mozilla.org/ja/docs/Web/JavaScript/Guide/Regular_Expressions */
   if (RegExp.test(messageText)) {
     const accountId = messageText.match(/^U[A-Za-z0-9]{32}/);
-    const answerMessage = messageText.replace(RegExp, "");
+    const answerMessage = messageText.replace(/^U[A-Za-z0-9]{32}\n\n/, "");
     liGetJWT(jwttoken => {
       liGetServerToken(jwttoken, newtoken => {
         console.log("ここまで確認")
