@@ -78,17 +78,15 @@ app.post("/callback", function(req, res) {
       /* LineWorksへの転送 */
       getJWT(jwttoken => {
         getServerToken(jwttoken, newtoken => {
-          sendToLW("aa", newtoken);
+          sendToLW(req.body.events[0].message.text, newtoken);
         });
       });  
 })
 
+/* from Lineworks*/
 app.post("/fromlw", function(req, res) {
   console.log(req.body.content.text)
 })
-
-
-/* from Lineworks*/
 
 
 // app.get("/accountSet", function() {
