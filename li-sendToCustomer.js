@@ -7,18 +7,19 @@ const getServerToken = require("./get-server-token");
 module.exports = async function sendMessageToCustomer(message, newtoken, accountId, companyUser) {
 
   getJWT(jwttoken => {
-    getServerToken(jwttoken, async (newtoken) => {
+    getServerToken(jwttoken, async (token) => {
       await axios({
         method: 'get',
-        url: `https://apis.worksmobile.com/r/${process.env.APIID}/contact/v2/accounts/${sender}`,
+        url: `https://apis.worksmobile.com/r/${process.env.APIID}/contact/v2/accounts/${companyUser}`,
         headers: {
           "Content-Type": "application/json;charset=UTF-8",
           consumerKey: process.env.CONSUMERKEY,
           Authorization: "Bearer " + newtoken
         }
       }).then((res) => {
+
         const client = new line.Client({
-          channelAccessToken: newtoken
+          channelAccessToken: token
         });
       
         const replyUser = "穴吹興産株式会社"+ "\n" + res.data.name + "\n" +　"所属部署：" + res.data.representOrgUnitName
