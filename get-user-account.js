@@ -5,7 +5,7 @@ const TOKEN = process.env.LINE_ACCESS_TOKEN
 
 module.exports = function getUserAccount(userId) {
 
-  const URL = `https://api.line.me/v2/bot/profile/${userId}`
+  const request_url = `https://api.line.me/v2/bot/profile/${userId}`
 
   const headers = {
     "Content-Type": "application/json",
@@ -13,14 +13,18 @@ module.exports = function getUserAccount(userId) {
   }
 
   const webhookOptions = {
+    'url': request_url,
     'method': 'get',
-    'url': URL,
     'headers': headers,
   }
   // Define request
-  axios.get(webhookOptions)
-    .then((data)=> {
-      console.log(data)
-  })
+  const userInfo = axios.get(webhookOptions)
+    .then((res)=> {
+      console.log(res)
+      return res
+    })
+    .catch((err) => {
+      console.log(`error is ${err}`)
+    })
 };
 
