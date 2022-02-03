@@ -4,7 +4,7 @@ const axios = require('axios');
 const getJWT = require("./getJWT");
 const getServerToken = require("./get-server-token");
 
-module.exports = async function sendMessageToCustomer(message, newtoken, accountId, companyUser) {
+module.exports = async function sendMessageToCustomer(message, lineToken, accountId, companyUser) {
 
   getJWT(jwttoken => {
     getServerToken(jwttoken, async (token) => {
@@ -14,15 +14,16 @@ module.exports = async function sendMessageToCustomer(message, newtoken, account
         headers: {
           "Content-Type": "application/json;charset=UTF-8",
           consumerKey: process.env.CONSUMERKEY,
-          Authorization: "Bearer " + newtoken
+          Authorization: "Bearer " + token
         }
       }).then((res) => {
 
         const client = new line.Client({
-          channelAccessToken: token
+          channelAccessToken: lineToken
         });
       
-        const replyUser = "穴吹興産株式会社"+ "\n" + res.data.name + "\n" +　"所属部署：" + res.data.representOrgUnitName
+        const replyUser = "\n\n穴吹興産株式会社"+ "\n" + res.data.name + "\n" +　"所属部署：" + res.data.representOrgUnitName
+        console.log(replyUser)
       
         const Message = {
           type: 'text',
@@ -37,8 +38,6 @@ module.exports = async function sendMessageToCustomer(message, newtoken, account
             console.log('エラーが発生しました')
           }
         );        
-      }).catch((err) => {
-        console.log(`error is ${err}`)
       })
     })
   });
