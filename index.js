@@ -101,15 +101,12 @@ app.post("/fromlw", function(req, res) {
   const messageText = req.body.content.text
   /* https://developer.mozilla.org/ja/docs/Web/JavaScript/Guide/Regular_Expressions */
   if (RegExp.test(messageText)) {
-    console.log('動いた')
-    const accountId = messageText.match(RegExp);
-    console.log({'accountId': accountId})
+    const accountId = messageText.match(/^U[A-Za-z0-9]{32}/);
     const answerMessage = messageText.replace(RegExp, "");
-    console.log({'answerMessage': answerMessage})
     liGetJWT(jwttoken => {
       liGetServerToken(jwttoken, newtoken => {
         console.log("ここまで確認")
-        /* liSendToCustomer(answerMessage, newtoken, accountId);*/
+        liSendToCustomer(answerMessage, newtoken, accountId);
       });
     })
   }
