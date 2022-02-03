@@ -81,7 +81,7 @@ app.post("/callback", async function(req, res) {
       console.error(err)
     })
     // Send data
-    // request.write(dataString)
+    request.write(dataString)
     request.end()
   }
 })
