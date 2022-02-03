@@ -93,11 +93,9 @@ const liGetJWT = require("./li-getJWT");
 const liGetServerToken = require("./li-get-server-token");
 
 app.post("/fromlw", function(req, res) {
-  const Message = req.body.content.text
   liGetJWT(jwttoken => {
     liGetServerToken(jwttoken, newtoken => {
-      console.log(newtoken)
-      liSendToCustomer(Message, newtoken);
+      liSendToCustomer(req.body.content.text, newtoken);
     });
   })
   console.log(req.body.content.text)
