@@ -106,7 +106,7 @@ app.post("/fromlw", function(req, res) {
     liGetJWT(jwttoken => {
       liGetServerToken(jwttoken, newtoken => {
         console.log("ここまで確認")
-        liSendToCustomer(answerMessage, newtoken, accountId);
+        liSendToCustomer(answerMessage, newtoken, accountId[0]);
       });
     })
   }
