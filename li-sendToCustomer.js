@@ -1,13 +1,13 @@
 const line = require('@line/bot-sdk');
 const axios = require('axios');
 
-module.exports = function getJWT(message, newtoken, accountId) {
+module.exports = async function getJWT(message, newtoken, accountId) {
 
   const client = new line.Client({
     channelAccessToken: newtoken
   });
 
-  const replyUser = getAccountInfo()
+  const replyUser = await getAccountInfo()
 
   const Message = {
     type: 'text',
