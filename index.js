@@ -72,9 +72,9 @@ app.post("/callback", async function(req, res) {
     console.log({"userAccount": userAccount})
 
     /* LineWorksへの転送 */
-    await getJWT(jwttoken => {
-      await getServerToken(jwttoken, newtoken => {
-        await sendToLW(Message, newtoken, USERID);
+    getJWT(jwttoken => {
+      getServerToken(jwttoken, newtoken => {
+        sendToLW(Message, newtoken, USERID);
       });
     });
 
