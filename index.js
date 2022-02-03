@@ -15,7 +15,7 @@ const jwt_decode = require('jwt-decode');
 const PORT = process.env.PORT || 3000
 const TOKEN = process.env.LINE_ACCESS_TOKEN
 
-
+const getUserAccount = require('./get-user-account')
 const getJWT = require("./getJWT");
 const getServerToken = require("./get-server-token");
 const sendToLW = require("./sendToLW")
@@ -33,9 +33,10 @@ app.listen(PORT, () => {
     console.log(`Example app listening at http://localhost:${PORT}`)
 })
 
+
 app.post("/callback", function(req, res) {
-    const decoded = jwt_decode(req.body.events[0].replyToken)
-    console.log(decoded)
+    // const decoded = jwt_decode(req.body.events[0].replyToken)
+    // console.log(decoded)
     if (req.body.events[0].type === "message") {
         // Message data, must be stringified
         const dataString = JSON.stringify({
@@ -79,6 +80,10 @@ app.post("/callback", function(req, res) {
         request.write(dataString)
         request.end()
       }
+
+      const userAccount = getUserAccount()
+      console.log({"userAccount": userAccount})
+
 
       /* LineWorksへの転送 */
       getJWT(jwttoken => {
