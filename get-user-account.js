@@ -19,7 +19,7 @@ module.exports = function getUserAccount(userId) {
   // Define request
   const userInfo = axios.get(url, webhookOptions)
     .then((res)=> {
-      console.log(res)
+      console.log(res.data)
       return res
     })
     .catch((err) => {
