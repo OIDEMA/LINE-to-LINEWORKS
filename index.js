@@ -66,8 +66,11 @@ app.post("/callback", function(req, res) {
     
         // Define request
         const request = https.request(webhookOptions, (res) => {
-          res.on("data", (d) => {
+          res.on('data', (d) => {
             process.stdout.write(d)
+          })
+          res.on('end', () => {
+            console.log("message transfer finished")
           })
         })
     

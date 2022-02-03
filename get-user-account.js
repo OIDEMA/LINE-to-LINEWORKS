@@ -35,8 +35,8 @@ module.exports = function getUserAccount(userId) {
   }
   // Define request
   const request = https.request(webhookOptions, (res) => {
-    res.on("data", (d) => {
-      console.log({"d" : d})
+    res.on('data', (d) => {
+      console.log(d)
     })
     res.on('end', () =>{
       console.log("user aquisition finished")
