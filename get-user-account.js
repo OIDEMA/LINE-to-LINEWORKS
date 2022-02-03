@@ -1,4 +1,3 @@
-const https = require("https")
 const axios = require('axios');
 
 const TOKEN = process.env.LINE_ACCESS_TOKEN

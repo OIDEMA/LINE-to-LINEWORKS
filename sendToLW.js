@@ -26,5 +26,5 @@ module.exports = function sendToLW(messageText, token, userInfo) {
       console.log("error send message: ", err);
       return;
     }
-  });  
+  });
 };

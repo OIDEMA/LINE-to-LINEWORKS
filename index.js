@@ -99,6 +99,7 @@ const RegExp = /^U[A-Za-z0-9]{32}\n/;
 
 app.post("/fromlw", function(req, res) {
   const messageText = req.body.content.text
+  const companyUser = req.body.source.accountId;
   /* https://developer.mozilla.org/ja/docs/Web/JavaScript/Guide/Regular_Expressions */
   if (RegExp.test(messageText)) {
     const accountId = messageText.match(/^U[A-Za-z0-9]{32}/);
@@ -106,7 +107,7 @@ app.post("/fromlw", function(req, res) {
     liGetJWT(jwttoken => {
       liGetServerToken(jwttoken, newtoken => {
         console.log("ここまで確認")
-        liSendToCustomer(answerMessage, newtoken, accountId[0]);
+        liSendToCustomer(answerMessage, newtoken, accountId[0], companyUser);
       });
     })
   }
