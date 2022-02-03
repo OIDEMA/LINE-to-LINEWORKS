@@ -8,7 +8,7 @@ module.exports = async function sendMessageToCustomer(message, newtoken, account
 
   getJWT(jwttoken => {
     getServerToken(jwttoken, async (newtoken) => {
-      const account = await axios({
+      await axios({
         method: 'get',
         url: `https://apis.worksmobile.com/r/${process.env.APIID}/contact/v2/accounts/${sender}`,
         headers: {
@@ -17,31 +17,28 @@ module.exports = async function sendMessageToCustomer(message, newtoken, account
           Authorization: "Bearer " + newtoken
         }
       }).then((res) => {
-        return res.data
+        const client = new line.Client({
+          channelAccessToken: newtoken
+        });
+      
+        const replyUser = "穴吹興産株式会社"+ "\n" + res.data.name + "\n" +　"所属部署：" + res.data.representOrgUnitName
+      
+        const Message = {
+          type: 'text',
+          text: message + replyUser
+        };
+        
+        client.pushMessage(accountId, Message)
+          .then(() => {
+            console.log('メッセージを送信しました')
+          })
+          .catch((err) => {
+            console.log('エラーが発生しました')
+          }
+        );        
       }).catch((err) => {
         console.log(`error is ${err}`)
       })
-      return "穴吹興産株式会社"+ "\n" + account.name + "\n" +　"所属部署：" + account.representOrgUnitName 
     })
-    
-    const client = new line.Client({
-      channelAccessToken: newtoken
-    });
-  
-    const replyUser = await getAccountInfo(companyUser)
-  
-    const Message = {
-      type: 'text',
-      text: message + replyUser
-    };
-    
-    client.pushMessage(accountId, Message)
-      .then(() => {
-        console.log('メッセージを送信しました')
-      })
-      .catch((err) => {
-        console.log('エラーが発生しました')
-      }
-    );
   });
 }
