@@ -15,8 +15,8 @@ module.exports = function sendToLW(messageText, token) {
     },
     json: {
       botNo: Number(BOTNO),
-      // accountId: "k-goda@anabuki-group",
-      roomId: 51952099, /* DXのルーム */
+      accountId: "k-goda@anabuki-group",
+      // roomId: 51952099, /* DXのルーム */
       content: {
         type: "text",
         text: messageText 
