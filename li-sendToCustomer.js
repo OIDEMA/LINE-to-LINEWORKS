@@ -27,10 +27,10 @@ module.exports = async function getJWT(message, newtoken, accountId) {
       try {
         const account = await axios({
           method: 'get',
-          url: `https://apis.worksmobile.com/r/${APIID}/contact/v2/accounts/${companyUser}`,
+          url: `https://apis.worksmobile.com/r/${process.env.APIID}/contact/v2/accounts/${companyUser}`,
           headers: {
             "Content-Type": "application/json;charset=UTF-8",
-            consumerKey: CONSUMERKEY,
+            consumerKey: process.env.CONSUMERKEY,
             Authorization: "Bearer " + token
           }
         }).then((res) => {
