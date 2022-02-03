@@ -10,8 +10,8 @@ module.exports = function getUserAccount(userId) {
       "Authorization": "Bearer " + TOKEN
     },
   };
-  request.get(data, (err, response, body) => {
-    if (response) {
+  request.get(data, (err, res, body) => {
+    if (res) {
       console.log(res);
       return;
     }
