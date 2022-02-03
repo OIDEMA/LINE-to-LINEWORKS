@@ -9,6 +9,9 @@ const http = require('http');
 const querystring = require('querystring');
 const opn = require('opn');
 
+/* decode */
+const  jwt_decode = require("jwt-decode");
+
 const PORT = process.env.PORT || 3000
 const TOKEN = process.env.LINE_ACCESS_TOKEN
 
@@ -31,6 +34,7 @@ app.listen(PORT, () => {
 })
 
 app.post("/callback", function(req, res) {
+    console.log(jwt_decode(req.body.events[0].replyToken))
     if (req.body.events[0].type === "message") {
         // Message data, must be stringified
         const dataString = JSON.stringify({
