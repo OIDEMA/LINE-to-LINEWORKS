@@ -11,7 +11,7 @@ module.exports = function getUserAccount(userId) {
     },
   };
   request.get(data, (err, res) => {
-    if (error) {
+    if (err) {
       console.log("Error", err);
       callback(err);
     } else {
