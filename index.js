@@ -99,14 +99,16 @@ app.post("/fromlw", function(req, res) {
   /* https://developer.mozilla.org/ja/docs/Web/JavaScript/Guide/Regular_Expressions */
   if (RegExp.test(messageText)) {
     const accountId = messageText.match(RegExp);
+    console.log({'accountId': accountId})
     const answerMessage = messageText.replace(RegExp, "");
+    console.log({'answerMessage': answerMessage})
     liGetJWT(jwttoken => {
       liGetServerToken(jwttoken, newtoken => {
-        liSendToCustomer(answerMessage, newtoken, accountId);
+        console.log("ここまで確認")
+        /* liSendToCustomer(answerMessage, newtoken, accountId);*/
       });
     })
   }
-  console.log(req.body.content.text)
 })
 
 /* Reference */
