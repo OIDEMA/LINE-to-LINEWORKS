@@ -40,12 +40,12 @@ async function getAccountInfo(sender) {
           Authorization: "Bearer " + newtoken
         }
       }).then((res) => {
-        console.log(res.data)
         return res.data
+      }).catch((err) => {
+        console.log(`error is ${err}`)
       })
-      return "穴吹興産株式会社"+ "\n" + account.name + "\n" +　"所属部署：" + account.representOrgUnitName
     })
-    return 
+    return "穴吹興産株式会社"+ "\n" + account.name + "\n" +　"所属部署：" + account.representOrgUnitName 
   });
   return
 }
