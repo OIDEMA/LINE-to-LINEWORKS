@@ -12,7 +12,10 @@ module.exports = function getUserAccount(userId) {
   };
   request.get(data, (err, res, body) => {
     if (res) {
+      console.log(res);
       return res;
+    } else {
+      console.log("error occur")
     }
   });  
 };
