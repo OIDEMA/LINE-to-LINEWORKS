@@ -10,7 +10,7 @@ module.exports = async function sendMessageToCustomer(message, newtoken, account
     channelAccessToken: newtoken
   });
 
-  const replyUser = await getAccountInfo()
+  const replyUser = await getAccountInfo(companyUser)
 
   const Message = {
     type: 'text',
@@ -28,12 +28,12 @@ module.exports = async function sendMessageToCustomer(message, newtoken, account
 }
 
 /* Line Works User */
-async function getAccountInfo() {
+async function getAccountInfo(sender) {
   getJWT(jwttoken => {
     getServerToken(jwttoken, async (newtoken) => {
       const account = await axios({
         method: 'get',
-        url: `https://apis.worksmobile.com/r/${process.env.APIID}/contact/v2/accounts/${companyUser}`,
+        url: `https://apis.worksmobile.com/r/${process.env.APIID}/contact/v2/accounts/${sender}`,
         headers: {
           "Content-Type": "application/json;charset=UTF-8",
           consumerKey: process.env.CONSUMERKEY,
