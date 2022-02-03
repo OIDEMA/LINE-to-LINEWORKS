@@ -5,16 +5,17 @@ const TOKEN = process.env.LINE_ACCESS_TOKEN
 
 module.exports = function getUserAccount(userId) {
 
+  const URL = `https://api.line.me/v2/bot/profile/${userId}`
+
   const headers = {
     "Content-Type": "application/json",
     "Authorization": "Bearer " + TOKEN
   }
 
   const webhookOptions = {
-    "hostname": "api.line.me",
-    "path": `v2/bot/profile/${userId}`,
-    "method": 'GET',
-    "headers": headers,
+    'method': 'get',
+    'url': URL,
+    'headers': headers,
   }
   // Define request
   axios.get(webhookOptions)
