@@ -20,25 +20,26 @@ module.exports = async function sendMessageToCustomer(message, newtoken, account
     })
     .catch((err) => {
       console.log('エラーが発生しました')
-    });
-
-    /* Line Works User */
-    async function getAccountInfo() {
-      getJWT(jwttoken => {
-        getServerToken(jwttoken, newtoken => {
-          const account = await axios({
-            method: 'get',
-            url: `https://apis.worksmobile.com/r/${process.env.APIID}/contact/v2/accounts/${companyUser}`,
-            headers: {
-              "Content-Type": "application/json;charset=UTF-8",
-              consumerKey: process.env.CONSUMERKEY,
-              Authorization: "Bearer " + newtoken
-            }
-          }).then((res) => {
-            return res.data
-          })
-          return "穴吹興産株式会社"+ "\n" + account.name + "\n" +　"所属部署：" + account.representOrgUnitName
-        })
-      });
     }
+  );
+
+  /* Line Works User */
+  function getAccountInfo() {
+    getJWT(jwttoken => {
+      getServerToken(jwttoken, async (newtoken) => {
+        const account = axios({
+          method: 'get',
+          url: `https://apis.worksmobile.com/r/${process.env.APIID}/contact/v2/accounts/${companyUser}`,
+          headers: {
+            "Content-Type": "application/json;charset=UTF-8",
+            consumerKey: process.env.CONSUMERKEY,
+            Authorization: "Bearer " + newtoken
+          }
+        }).then((res) => {
+          return res.data
+        })
+        return "穴吹興産株式会社"+ "\n" + account.name + "\n" +　"所属部署：" + account.representOrgUnitName
+      })
+    });
+  }
 }
