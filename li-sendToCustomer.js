@@ -43,7 +43,9 @@ async function getAccountInfo() {
         console.log(res.data)
         return res.data
       })
+      return "穴吹興産株式会社"+ "\n" + account.name + "\n" +　"所属部署：" + account.representOrgUnitName
     })
+    return 
   });
-  return "穴吹興産株式会社"+ "\n" + account.name + "\n" +　"所属部署：" + account.representOrgUnitName
+  return
 }
