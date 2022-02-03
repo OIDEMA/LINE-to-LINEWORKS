@@ -106,7 +106,6 @@ app.post("/fromlw", function(req, res) {
     const answerMessage = messageText.replace(/^U[A-Za-z0-9]{32}\n\n/, "");
     liGetJWT(jwttoken => {
       liGetServerToken(jwttoken, newtoken => {
-        console.log("ここまで確認")
         liSendToCustomer(answerMessage, newtoken, accountId[0], companyUser);
       });
     })
