@@ -2,7 +2,8 @@ const line = require('@line/bot-sdk');
 
 module.exports = function getJWT(message, newtoken) {
   console.log(message)
-  console.log(newtoken)
+  console.log({"newToken":newtoken})
+  
   const client = new line.Client({
     channelAccessToken: newtoken
   });
