@@ -1,7 +1,7 @@
-const jwt = require("jsonwebtoken");
 const jose = require('node-jose');
 
-module.exports = function getJWT(callback) {
+module.exports = function getJWT() {
+
   const header = {
     alg: "RS256",
     typ: "JWT",
@@ -14,7 +14,7 @@ module.exports = function getJWT(callback) {
     aud: "https://api.line.me/",
     exp: Math.floor(new Date().getTime() / 1000) + 60 * 30,
     token_exp: 60 * 60 * 24 * 30
-  }
+  },
 
   const jwt = jose.JWS.createSign({format: 'compact', fields: header}, JSON.parse(process.env.LI_PRIVATEKEY))
   .update(JSON.stringify(payload))
