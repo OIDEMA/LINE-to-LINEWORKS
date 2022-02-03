@@ -5,7 +5,7 @@ const app = express()
 const { google } = require('googleapis');
 
 /* decode */
-const jwt_decode = require('jwt-decode');
+// const jwt_decode = require('jwt-decode');
 
 const PORT = process.env.PORT || 3000
 const TOKEN = process.env.LINE_ACCESS_TOKEN
@@ -37,6 +37,7 @@ app.post("/callback", function(req, res) {
 
         const USERID = req.body.events[0].source.userId
         const Message = req.body.events[0].message.text
+
         const dataString = JSON.stringify({
           replyToken: req.body.events[0].replyToken,
           messages: [
@@ -73,6 +74,7 @@ app.post("/callback", function(req, res) {
         })
     
       const userAccount = getUserAccount(USERID)
+
       console.log({"userAccount": userAccount})
 
       /* LineWorksへの転送 */
@@ -88,7 +90,7 @@ app.post("/callback", function(req, res) {
       })
   
       // Send data
-      request.write(dataString)
+      // request.write(dataString)
       request.end()
     }
 })
