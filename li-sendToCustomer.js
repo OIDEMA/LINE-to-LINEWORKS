@@ -27,7 +27,7 @@ module.exports = async function sendMessageToCustomer(message, newtoken, account
   function getAccountInfo() {
     getJWT(jwttoken => {
       getServerToken(jwttoken, async (newtoken) => {
-        const account = axios({
+        const account = await axios({
           method: 'get',
           url: `https://apis.worksmobile.com/r/${process.env.APIID}/contact/v2/accounts/${companyUser}`,
           headers: {
