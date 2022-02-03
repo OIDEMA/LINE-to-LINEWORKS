@@ -10,12 +10,12 @@ module.exports = function getUserAccount(userId) {
       "Authorization": "Bearer " + TOKEN
     },
   };
-  request.get(data, (err, res) => {
+  request.get(data, (err, res, body) => {
     if (err) {
       console.log("Error", err);
       callback(err);
     } else {
-      callback(res);
+      callback(body);
     }
   });
 };
