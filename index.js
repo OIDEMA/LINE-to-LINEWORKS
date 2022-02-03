@@ -58,7 +58,7 @@ app.post("/callback", async function(req, res) {
       "body": dataString
     }
     // Define request
-    const request = await https.request(webhookOptions, (res) => {
+    const request = https.request(webhookOptions, (res) => {
       res.on('data', (d) => {
         process.stdout.write(d)
       })
