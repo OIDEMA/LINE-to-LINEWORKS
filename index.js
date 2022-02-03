@@ -29,70 +29,63 @@ app.listen(PORT, () => {
 })
 
 
-app.post("/callback", function(req, res) {
-    // const decoded = jwt_decode(req.body.events[0].replyToken)
-    // console.log(decoded)
-    if (req.body.events[0].type === "message") {
-        // Message data, must be stringified
+app.post("/callback", async function(req, res) {
+  if (req.body.events[0].type === "message") {
 
-        const USERID = req.body.events[0].source.userId
-        const Message = req.body.events[0].message.text
+    const USERID = req.body.events[0].source.userId
+    const Message = req.body.events[0].message.text
 
-        const dataString = JSON.stringify({
-          replyToken: req.body.events[0].replyToken,
-          messages: [
-            {
-              "type": "text",
-              "text": Message
-            }
-          ]
-        })
-    
-        // Request header
-        const headers = {
-          "Content-Type": "application/json",
-          "Authorization": "Bearer " + TOKEN
+    const dataString = JSON.stringify({
+      replyToken: req.body.events[0].replyToken,
+      messages: [
+        {
+          "type": "text",
+          "text": Message
         }
-    
-        //Options to pass into the request
-        const webhookOptions = {
-          "hostname": "api.line.me",
-          "path": "/v2/bot/message/reply",
-          "method": "POST",
-          "headers": headers,
-          "body": dataString
-        }
-    
-        // Define request
-        const request = https.request(webhookOptions, (res) => {
-          res.on('data', (d) => {
-            process.stdout.write(d)
-          })
-          res.on('end', () => {
-            console.log("message transfer finished")
-          })
-        })
-    
-      const userAccount = getUserAccount(USERID)
-
-      console.log({"userAccount": userAccount})
-
-      /* LineWorksへの転送 */
-      getJWT(jwttoken => {
-        getServerToken(jwttoken, newtoken => {
-          sendToLW(Message, newtoken, USERID);
-        });
-      });
-
-      // Handle error
-      request.on("error", (err) => {
-        console.error(err)
-      })
-  
-      // Send data
-      // request.write(dataString)
-      request.end()
+      ]
+    })  
+    // Request header
+    const headers = {
+      "Content-Type": "application/json",
+      "Authorization": "Bearer " + TOKEN
     }
+    //Options to pass into the request
+    const webhookOptions = {
+      "hostname": "api.line.me",
+      "path": "/v2/bot/message/reply",
+      "method": "POST",
+      "headers": headers,
+      "body": dataString
+    }
+    // Define request
+    const request = await https.request(webhookOptions, (res) => {
+      res.on('data', (d) => {
+        process.stdout.write(d)
+      })
+      res.on('end', () => {
+        console.log("message transfer finished")
+      })
+    })
+  
+    const userAccount = await getUserAccount(USERID)
+
+    console.log({"userAccount": userAccount})
+
+    /* LineWorksへの転送 */
+    await getJWT(jwttoken => {
+      await getServerToken(jwttoken, newtoken => {
+        await sendToLW(Message, newtoken, USERID);
+      });
+    });
+
+    // Handle error
+    request.on("error", (err) => {
+      console.error(err)
+    })
+    // Send data
+    // request.write(dataString)
+    request.end()
+  }
 })
 
 /* from Lineworks*/
