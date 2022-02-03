@@ -39,6 +39,7 @@ module.exports = async function sendMessageToCustomer(message, newtoken, account
             Authorization: "Bearer " + newtoken
           }
         }).then((res) => {
+          console.log(res.data)
           return res.data
         })
         return "穴吹興産株式会社"+ "\n" + account.name + "\n" +　"所属部署：" + account.representOrgUnitName
